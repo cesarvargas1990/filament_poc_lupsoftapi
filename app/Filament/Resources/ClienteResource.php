@@ -19,6 +19,7 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Field;
 class ClienteResource extends Resource
 {
     protected static ?string $model = Cliente::class;
@@ -82,10 +83,12 @@ class ClienteResource extends Resource
                                     ]),
                             ]),
     
-                        Fieldset::make('Firma Cliente')
+                            Fieldset::make('Firma Cliente')
                             ->schema([
-                                Textarea::make('firma_cliente')
-                                    ->label('Escriba su firma sobre el cuadro de abajo'),
+                                Field::make('firma_cliente')
+                                    ->label('Firma del Cliente')
+                                    ->view('components.signature-pad') // Usa la vista personalizada del Signature Pad
+                                    ->columnSpan('full'), // Ocupa todo el ancho disponible
                             ]),
     
                         Fieldset::make('Archivos')
