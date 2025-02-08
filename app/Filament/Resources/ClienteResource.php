@@ -20,6 +20,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
+use Filament\Tables\Filters\Filter;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 class ClienteResource extends Resource
 {
     protected static ?string $model = Cliente::class;
@@ -84,12 +86,12 @@ class ClienteResource extends Resource
                             ]),
     
                             Fieldset::make('Firma Cliente')
-                            ->schema([
-                                Field::make('firma_cliente')
-                                    ->label('Firma del Cliente')
-                                    ->view('components.signature-pad') // Usa la vista personalizada del Signature Pad
-                                    ->columnSpan('full'), // Ocupa todo el ancho disponible
-                            ]),
+                                ->schema([
+                                    Field::make('firma_cliente')
+                                        ->label('Firma del Cliente')
+                                        ->view('components.signature-pad') // Usa la vista personalizada
+                                        ->columnSpan('full'), // Ocupa todo el ancho
+                                ]),
     
                         Fieldset::make('Archivos')
                             ->schema([
@@ -100,65 +102,64 @@ class ClienteResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('nombre')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('numero_documento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cobrador')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('fecha_expedicion')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('fecha_nacimiento')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('tipo_documento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('ciudad')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('telefono')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('celular')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('dir_casa')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('dir_trabajo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('referencia_1')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('referencia_2')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cedula')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('foto')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+   
+
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            Tables\Columns\TextColumn::make('nombre')
+                ->label('Nombre')
+                ->searchable()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('numero_documento')
+                ->label('Número Documento')
+                ->searchable()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('ciudad')
+                ->label('Ciudad')
+                ->searchable()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('telefono')
+                ->label('Teléfono')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('celular')
+                ->label('Celular')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('fecha_nacimiento')
+                ->label('Fecha Nacimiento')
+                ->date()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->label('Creado')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ])
+        ->headerActions([
+            FilamentExportHeaderAction::make('export_clientes') // ✅ NOMBRE ÚNICO
+                ->label('Exportar Clientes') // Texto del botón
+                ->fileName('clientes_export_' . now()->format('Y-m-d_H-i-s')) // Nombre del archivo con timestamp
+                ->defaultFormat('xlsx') // Formato predeterminado
+                ->withColumns([ // Columnas a exportar
+                    'nombre',
+                    'numero_documento',
+                    'ciudad',
+                    'telefono',
+                    'celular',
+                    'fecha_nacimiento',
+                    'created_at',
+                ])
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]);
+}
+
+
 
     public static function getRelations(): array
     {
