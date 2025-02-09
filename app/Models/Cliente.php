@@ -27,4 +27,9 @@ class Cliente extends Model
         'cedula',
         'foto',
     ];
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
 }

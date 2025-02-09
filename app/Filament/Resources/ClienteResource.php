@@ -60,7 +60,26 @@ class ClienteResource extends Resource
                                 TextInput::make('tipo_documento')
                                     ->label('Tipo Documento'),
                             ]),
-    
+                        Fieldset::make('Datos Empresa')
+                            ->schema([
+                                Forms\Components\Select::make('empresa_id')
+                                    ->label('Empresa')
+                                    ->relationship('empresa', 'nombre') // Relación con el modelo Empresa
+                                    ->preload() // Precarga las opciones
+                                    ->searchable() // Habilita la búsqueda
+                                    ->createOptionForm([ // Habilita la creación de empresas desde la modal
+                                        TextInput::make('nombre')
+                                            ->label('Nombre de la Empresa')
+                                            ->required(),
+                                            
+                                        TextInput::make('nit')
+                                            ->label('NIT de la Empresa')
+                                            ->required(),
+                                            TextInput::make('capital_inicial')
+                                            ->label('Capital inicial')
+                                            ->required()
+                                    ]),
+                            ]),
                         Fieldset::make('Datos Contacto')
                             ->schema([
                                 Grid::make(3)
@@ -75,7 +94,6 @@ class ClienteResource extends Resource
                                         TextInput::make('dir_trabajo')->label('Dir Trabajo'),
                                     ]),
                             ]),
-    
                         Fieldset::make('Referencias')
                             ->schema([
                                 Grid::make(2)
@@ -84,15 +102,13 @@ class ClienteResource extends Resource
                                         TextInput::make('referencia_2')->label('Referencia 2'),
                                     ]),
                             ]),
-    
-                            Fieldset::make('Firma Cliente')
-                                ->schema([
-                                    Field::make('firma_cliente')
-                                        ->label('Firma del Cliente')
-                                        ->view('components.signature-pad') // Usa la vista personalizada
-                                        ->columnSpan('full'), // Ocupa todo el ancho
-                                ]),
-    
+                        Fieldset::make('Firma Cliente')
+                            ->schema([
+                                Field::make('firma_cliente')
+                                    ->label('Firma del Cliente')
+                                    ->view('components.signature-pad') // Usa la vista personalizada
+                                    ->columnSpan('full'), // Ocupa todo el ancho
+                            ]),
                         Fieldset::make('Archivos')
                             ->schema([
                                 FileUpload::make('cedula')->label('Cédula ciudadanía'),
