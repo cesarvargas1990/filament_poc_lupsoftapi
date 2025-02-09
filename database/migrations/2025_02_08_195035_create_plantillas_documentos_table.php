@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('plantillas_documentos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre')->unique();
+            $table->string('codtipodocumento');
+            $table->longText(column: 'plantilla_html');
             $table->timestamps();
         });
     }

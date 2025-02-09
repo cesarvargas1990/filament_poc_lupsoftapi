@@ -10,5 +10,5 @@ class PlantillaDocumento extends Model
 
     protected $table = 'plantillas_documentos';
 
-    protected $fillable = ['nombre', 'codtipodocumento'];
+    protected $fillable = ['nombre', 'codtipodocumento','plantilla_html'];
 }
