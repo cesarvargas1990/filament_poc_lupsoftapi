@@ -38,14 +38,12 @@ return [
             'report' => false,
         ],
 
-        'public' => [
+       'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
-            'throw' => false,
-            'report' => false,
-        ],
+         ],
 
         's3' => [
             'driver' => 's3',
@@ -58,6 +56,23 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
             'report' => false,
+        ],
+        'export' => [ 
+            'driver' => 'local',
+            'root' => storage_path('app/exports'),
+            'url' => env('APP_URL') . '/exports',
+            'visibility' => 'public',
+            'permissions' => [
+                'file' => [
+                    'public' => 0644,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0755,
+                    'private' => 0700,
+                ],
+            ],
+            'throw' => false,
         ],
 
     ],

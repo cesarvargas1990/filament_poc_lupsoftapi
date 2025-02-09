@@ -136,21 +136,7 @@ public static function table(Table $table): Table
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
         ])
-        ->headerActions([
-            FilamentExportHeaderAction::make('export_clientes') // ✅ NOMBRE ÚNICO
-                ->label('Exportar Clientes') // Texto del botón
-                ->fileName('clientes_export_' . now()->format('Y-m-d_H-i-s')) // Nombre del archivo con timestamp
-                ->defaultFormat('xlsx') // Formato predeterminado
-                ->withColumns([ // Columnas a exportar
-                    'nombre',
-                    'numero_documento',
-                    'ciudad',
-                    'telefono',
-                    'celular',
-                    'fecha_nacimiento',
-                    'created_at',
-                ])
-        ])
+       
         ->actions([
             Tables\Actions\EditAction::make(),
         ])
