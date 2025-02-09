@@ -45,3 +45,7 @@ Abre tu navegador y ve a:
 ```
 http://127.0.0.1:8000/admin
 ```
+
+### 9. Credenciales de acceso
+- **Usuario:** admin@admin.com
+- **Contraseña:** password
