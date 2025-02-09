@@ -16,11 +16,14 @@ return new class extends Migration
             // Datos personales
             $table->string('nombre');
             $table->string('numero_documento')->unique();
+            $table->integer('tipo_documento_id');
             $table->string('email')->nullable();
             $table->string('cobrador')->nullable();
             $table->date('fecha_expedicion')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('tipo_documento')->nullable();
+            $table->integer('empresa_id')->nullable();
+            
 
             // Datos de contacto
             $table->string('ciudad')->nullable();

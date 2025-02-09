@@ -16,6 +16,7 @@ class Cliente extends Model
         'fecha_expedicion',
         'fecha_nacimiento',
         'tipo_documento',
+        'tipo_documento_id',
         'ciudad',
         'telefono',
         'celular',
@@ -31,5 +32,10 @@ class Cliente extends Model
     public function empresa()
     {
         return $this->belongsTo(Empresa::class);
+    }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class);
     }
 }

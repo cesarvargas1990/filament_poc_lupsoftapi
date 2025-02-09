@@ -57,8 +57,12 @@ class ClienteResource extends Resource
                                         DatePicker::make('fecha_nacimiento')
                                             ->label('Fecha Nacimiento'),
                                     ]),
-                                TextInput::make('tipo_documento')
-                                    ->label('Tipo Documento'),
+                                    Forms\Components\Select::make('tipo_documento_id')
+                                    ->label('Tipo de Documento')
+                                    ->relationship('tipoDocumento', 'nombre_tipo_documento') // Relación con TipoDocumento
+                                    ->searchable() // Habilita la búsqueda
+                                    ->placeholder('Selecciona un tipo de documento')
+                                    ->required(),
                             ]),
                         Fieldset::make('Datos Empresa')
                             ->schema([
