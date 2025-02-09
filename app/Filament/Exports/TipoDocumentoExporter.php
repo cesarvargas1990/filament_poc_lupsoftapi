@@ -37,7 +37,7 @@ class TipoDocumentoExporter extends Exporter
         //xshttp://localhost:8000/exports/filament_exports/123/tipos_documento.xlsx
 
         Log::info(config('filesystems.disks.export.url'));
-        $downloadUrl = config('filesystems.disks.export.url') . '/filament_exports/' . $export->id.'/'.$export->file_name.'.xlsx';
+        $downloadUrl = config('filesystems.disks.export.url') . '/' . $export->id.'/'.$export->file_name.'.xlsx';
     
         return sprintf(
             '✅ Exportación completada. %s filas exportadas.<br><a href="%s" target="_blank" style="color: #2563EB; text-decoration: underline;">Descargar Archivo</a>',
