@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Imports\ClienteImporter;
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
@@ -22,6 +23,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
 use Filament\Tables\Filters\Filter;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
+use Filament\Tables\Actions\ImportAction;
 class ClienteResource extends Resource
 {
     protected static ?string $model = Cliente::class;
@@ -156,7 +158,14 @@ public static function table(Table $table): Table
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
         ])
-       
+        ->headerActions([
+            ImportAction::make()
+            ->importer(ClienteImporter::class)
+            
+                
+               
+               
+        ])
         ->actions([
             Tables\Actions\EditAction::make(),
         ])

@@ -15,11 +15,22 @@ use Filament\Tables\Actions\ExportAction;
 use Filament\Actions\Exports\Enums\ExportFormat;
 use Illuminate\Support\Facades\Log;
 use Filament\Actions\Exports\Models\Export;
+use Filament\Actions;
 class TipoDocumentoResource extends Resource
 {
     protected static ?string $model = TipoDocumento::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            \EightyNine\ExcelImport\ExcelImportAction::make()
+                ->color("primary"),
+            Actions\CreateAction::make(),
+        ];
+    }
 
     public static function form(Form $form): Form
     {
